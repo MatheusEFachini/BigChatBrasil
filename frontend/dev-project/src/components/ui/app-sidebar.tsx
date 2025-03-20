@@ -20,15 +20,10 @@ const items = [
         icon: Home,
     },
     {
-        title: "Desenvolvedores",
-        url: "/desenvolvedores",
+        title: "Clientes",
+        url: "/clientes",
         icon: PersonStanding,
-    },
-    {
-        title: "Nivel",
-        url: "/nivel",
-        icon: Network,
-    },
+    }
 ]
 
   return (

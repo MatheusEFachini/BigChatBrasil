@@ -7,31 +7,32 @@ import {
   DialogHeader,
   DialogTitle
 } from "@/components/ui/dialog";
-import { Nivel } from "@/types/Nivel.d";
-import NivelForm from "./NivelForm";
-import * as NivelService from "../../services/NivelService";
 import { useToast } from "@/hooks/use-toast";
+import { Cliente } from "@/types/Cliente.d";
+import * as ClienteService from "../../services/ClienteService";
 import { useAlert } from "@/components/ui/alert-dialog-provider";
+import ClienteForm from "./ClienteForm";
+
 
 type Props = {
-  nivel?: Nivel;
+  cliente?: Cliente;
   setOpen: (bool:boolean) => void;
   open: boolean;
 };
 
-const NivelFormDialog: React.FC<Props> = (props) => {
+const ClienteFormDialog: React.FC<Props> = (props) => {
 
-  const {toast} = useToast();
   const alert = useAlert();
+  const {toast} = useToast();
 
-  const saveNivel = (nivel:Nivel) => {
-    NivelService.save(nivel)
+  const saveCliente = (cliente:Cliente) => {
+    ClienteService.save(cliente)
     .then(() => {
-      toast({title:"Sucesso", variant:"default", description:`Nível ${nivel.nivel} foi salvo`})
+      toast({title:"Sucesso", variant:"default", description:`Cliente ${cliente.nome} foi salvo`})
       props.setOpen(false);
     }).catch(e => {
         alert({
-          title:"Erro ao salvar o Nivel",
+          title:"Erro ao salvar o Cliente",
           body:`${e.response?.data?.code ?? e.status} - ${e.response?.data?.cause ?? e.message}`,
         })
   })
@@ -41,15 +42,15 @@ const NivelFormDialog: React.FC<Props> = (props) => {
     <Dialog open={props.open} onOpenChange={props.setOpen}>
     <DialogContent className="sm:max-w-[425px]">
       <DialogHeader>
-        <DialogTitle>Cadastro de Nível</DialogTitle>
+        <DialogTitle>Cadastro de Cliente</DialogTitle>
         <DialogDescription>
           Preencha os dados e aperte em "Salvar"
         </DialogDescription>
       </DialogHeader>
-        <NivelForm nivel={props.nivel} onSave={saveNivel}/>
+        <ClienteForm cliente={props.cliente} onSave={saveCliente}/>
     </DialogContent>
   </Dialog>
   );
 };
 
-export default NivelFormDialog;
+export default ClienteFormDialog;

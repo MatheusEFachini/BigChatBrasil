@@ -24,7 +24,7 @@ import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { Input } from "../../components/ui/input"
 import { Label } from "../../components/ui/label"
-import { getSexoSpec } from "@/enum/Sexo.d"
+import { getPlanoSpec } from "@/enum/Plano.d"
  
 interface Props<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -33,7 +33,7 @@ interface Props<TData, TValue> {
   onDelete: (value:TData) => void;
 }
  
-export function DesenvolvedorTableComponent<TData, TValue>({
+export function ClienteTableComponent<TData, TValue>({
   columns,
   data,
   onEdit,
@@ -99,11 +99,8 @@ export function DesenvolvedorTableComponent<TData, TValue>({
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
                     {
-                      cell.id.includes("sexo") ? 
-                      getSexoSpec(row.original?.sexo).descricao
-                      : cell.id.includes("data_nascimento") ? 
-                      `${row.original?.data_nascimento} (${row.original?.idade} Anos)`
-                      : cell.id.includes("nivel_id") ? row.original?.nivel_id?.nivel ?? "Nenhum"
+                      cell.id.includes("plano") ? 
+                      getPlanoSpec(row.original?.plano).descricao
                       : flexRender(cell.column.columnDef.cell, cell.getContext())
                     }
                   </TableCell>

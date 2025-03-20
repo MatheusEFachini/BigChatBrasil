@@ -1,20 +1,23 @@
-import { Sexo } from "@/enum/Sexo.d";
-import { Nivel } from "./Nivel.d";
+import { Plano } from "@/enum/Plano.d";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 
-export type Desenvolvedor = {
+
+export type Cliente = {
     id?: number;
-    nivel_id?: Nivel;
     nome?: string;
-    sexo: Sexo;
-    data_nascimento: Date;
-    idade?:number;
-    hobby?: string;
+    plano?: Plano;
+    email?: string;
+    cpf?: string;
+    cnpj?:string;
+    razaoSocial?: string;
+    limiteMaximo?: number;
+    saldoAtual?: number;
   };
-  
-export const columnsDesenvolvedor: ColumnDef<Desenvolvedor>[] = [
+
+    
+export const columnsCliente: ColumnDef<Cliente>[] = [
   {
     accessorKey:"nome",
     header: ({ column }) => {
@@ -23,63 +26,49 @@ export const columnsDesenvolvedor: ColumnDef<Desenvolvedor>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Desenvolvedor
+          Nome
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
   },
   {
-    accessorKey:"nivel_id",
+    accessorKey:"plano",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Nível
+          Plano
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
   },
   {
-    accessorKey:"sexo",
+    accessorKey:"telefone",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Sexo
+          Telefone
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
   },
   {
-    accessorKey:"data_nascimento",
+    accessorKey:"razaoSocial",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Data de Nascimento
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
-    },
-  },
-  {
-    accessorKey:"hobby",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Hobby
+          Nome Empresa
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
