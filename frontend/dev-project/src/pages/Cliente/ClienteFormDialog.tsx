@@ -40,7 +40,7 @@ const ClienteFormDialog: React.FC<Props> = (props) => {
 
   return (
     <Dialog open={props.open} onOpenChange={props.setOpen}>
-    <DialogContent className="sm:max-w-[425px]">
+    <DialogContent className="sm:max-w-4xl max-h-[468px] overflow-y-scroll">
       <DialogHeader>
         <DialogTitle>Cadastro de Cliente</DialogTitle>
         <DialogDescription>
