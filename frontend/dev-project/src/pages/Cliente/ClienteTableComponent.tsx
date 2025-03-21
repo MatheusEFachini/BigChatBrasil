@@ -19,12 +19,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { UserMinus, UserPen } from "lucide-react"
+import { CircleDollarSign, EllipsisVertical, HandCoins, UserMinus, UserPen } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { Input } from "../../components/ui/input"
 import { Label } from "../../components/ui/label"
 import { getPlanoSpec } from "@/enum/Plano.d"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
  
 interface Props<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -106,21 +107,50 @@ export function ClienteTableComponent<TData, TValue>({
                   </TableCell>
                 ))}
                 <TableCell>
-                  <Button
+
+                <DropdownMenu>
+                  <DropdownMenuTrigger>
+                    <EllipsisVertical />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuLabel>{row.original?.nome}</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>
+                      <Button
+                      className="px-2 mx-2"
+                      onClick={() => onEdit(row.original)}
+                    >
+                      <CircleDollarSign />Consultar saldo
+                    </Button>
+                      </DropdownMenuItem>
+                    <DropdownMenuItem>
+                    <Button
+                      className="px-2 mx-2"
+                      onClick={() => onEdit(row.original)}
+                    >
+                      <HandCoins />Adicionar saldo
+                    </Button>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                    <Button
                     className="px-2 mx-2"
-                    size="icon"
                     onClick={() => onEdit(row.original)}
                   >
-                    <UserPen />
+                    <UserPen />Editar cliente
                   </Button>
-                  <Button
-                    className="px-2 mx-2"
-                    size="icon"
-                    variant={"destructive"}
-                    onClick={() => onDelete(row.original)}
-                  >
-                    <UserMinus />
-                  </Button>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Button
+                      className="px-2 mx-2"
+                      variant={"destructive"}
+                      onClick={() => onDelete(row.original)}
+                    > 
+                      <UserMinus />Excluir cliente
+                    </Button>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
                 </TableCell>
               </TableRow>
             ))

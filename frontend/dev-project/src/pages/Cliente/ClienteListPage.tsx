@@ -5,7 +5,7 @@ import ClienteFormDialog from "./ClienteFormDialog";
 import * as ClienteService from "../../services/ClienteService";
 import { useToast } from "@/hooks/use-toast";
 import { ClienteTableComponent } from "./ClienteTableComponent";
-import { Cliente, columnsCliente } from "@/types/Cliente.d ";
+import { Cliente, clienteMockList, columnsCliente } from "@/types/Cliente.d ";
 import { PlusCircle } from "lucide-react";
 
 const ClienteListPage = () => {
@@ -23,19 +23,20 @@ const [Clientes, setClientes] = useState<Cliente[]>([])
   },[]);
 
   const getClientes = () => {
-    ClienteService.fetchAll()
-    .then(res => {
-      setClientes(res?.data);
-    }).catch(e => {
-      if(e.status == 404){
-        setClientes([])
-      }else{
-        alert({
-          title:"Erro ao buscar os Clientes",
-          body:`${e.response?.data?.code ?? e.status} - ${e.response?.data?.cause ?? e.message}`,
-        })
-      }
-  })
+  //   ClienteService.fetchAll()
+  //   .then(res => {
+      // setClientes(res?.data);
+      setClientes(clienteMockList);
+  //   }).catch(e => {
+  //     if(e.status == 404){
+  //       setClientes([])
+  //     }else{
+  //       alert({
+  //         title:"Erro ao buscar os Clientes",
+  //         body:`${e.response?.data?.code ?? e.status} - ${e.response?.data?.cause ?? e.message}`,
+  //       })
+  //     }
+  // })
   }
 
   const onRemove = async (cliente: Cliente) => {
@@ -81,18 +82,18 @@ const [Clientes, setClientes] = useState<Cliente[]>([])
           setOpen={updateListAfterSave}
         />
 
-        <ClienteTableComponent 
-        columns={columnsCliente} 
-        data={Clientes} 
-        onEdit={callFormDialog} 
-        onDelete={onRemove} />
-
         <div className="flex items-center justify-between">
           <Button onClick={() => callFormDialog()}>
             <PlusCircle className="w-4 h-4 mr-2" />
             <span>Novo Cliente</span>
           </Button>
         </div>
+
+        <ClienteTableComponent 
+        columns={columnsCliente} 
+        data={Clientes} 
+        onEdit={callFormDialog} 
+        onDelete={onRemove} />
       </div>
     </div>
   );

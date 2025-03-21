@@ -11,11 +11,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { getPlanoSpec, Plano } from "@/enum/Plano.d";
+import { isValidCNPJ, isValidCPF, isValidPhoneNumber, maskCNPJ, maskCPF, maskTelefone } from "@/lib/utils";
 import { Cliente } from "@/types/Cliente.d ";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import validator from "validator";
-import { isCPF, isCNPJ } from "validation-br";
+import InputMask from 'react-input-mask';
 import { z } from "zod";
 
 type Props = {
@@ -27,27 +27,32 @@ const ClienteForm: React.FC<Props> = (props) => {
   const validationSchema = z.object({
     id: z.any(),
     nome: z.string().min(2, "Min.2 caracteres"),
-    email: z.string().min(1, "Campo obrigatório").email("Email inválido"),
+    email: z.string().min(1, "Campo obrigatório")
+      .email("Email inválido"),
     telefone: z
       .string()
-      .min(1, "Campo obrigatório")
-      .refine((val) => validator.isMobilePhone(val), {
-        message: "Telefone inválido",
+      .min(19, 'Número de telefone inválido')
+      .max(19, 'Número de telefone inválido')
+      .refine((val) => isValidPhoneNumber(val), {
+        message: "Número de telefone inválido",
       }),
-    cpf: z
-      .string()
-      .min(1, "Campo obrigatório")
-      .refine((val) => isCPF(val), {
+    cpf: z.string()
+      .min(14, 'CPF inválido')
+      .max(14, 'CPF inválido')
+      .refine((val) => isValidCPF(val), {
         message: "CPF inválido",
       }),
     cnpj: z
       .string()
-      .min(1, "Campo obrigatório")
-      .refine((val) => isCNPJ(val), {
+      .min(18, "CNPJ inválido")
+      .max(18, "CNPJ inválido")
+      .refine((val) => isValidCNPJ(val), {
         message: "CNPJ inválido",
       }),
     razaoSocial: z.string().min(2, "Min.2 caracteres"),
     plano: z.nativeEnum(Plano),
+    limiteMaximo: z.number(),
+    saldoAtual: z.number(),
   });
 
   const form = useForm<z.infer<typeof validationSchema>>({
@@ -55,7 +60,14 @@ const ClienteForm: React.FC<Props> = (props) => {
     defaultValues: {
       id: props.cliente?.id ?? undefined,
       nome: props.cliente?.nome ?? "",
+      email: props.cliente?.email ?? "",
+      telefone: props.cliente?.telefone ?? "",
+      cpf: props.cliente?.cpf ?? "",
+      cnpj: props.cliente?.cnpj ?? "",
+      razaoSocial: props.cliente?.razaoSocial ?? "",
       plano: props.cliente?.plano ?? Plano.PRE_PAGO,
+      limiteMaximo: props.cliente?.limiteMaximo ?? 0.0,
+      saldoAtual: props.cliente?.saldoAtual ?? 0.0,
     },
   });
 
@@ -106,7 +118,11 @@ const ClienteForm: React.FC<Props> = (props) => {
               <FormItem>
                 <FormLabel>Telefone</FormLabel>
                 <FormControl>
-                  <Input {...field} type="tel" />
+                <InputMask {...field} mask={maskTelefone}>
+                  {(inputProps: any) => (
+                    <Input {...inputProps} type="tel" />
+                  )}
+                  </InputMask>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -122,7 +138,11 @@ const ClienteForm: React.FC<Props> = (props) => {
               <FormItem>
                 <FormLabel>CPF</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                <InputMask {...field} mask={maskCPF}>
+                  {(inputProps: any) => (
+                    <Input {...inputProps} />
+                  )}
+                  </InputMask>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -138,7 +158,11 @@ const ClienteForm: React.FC<Props> = (props) => {
               <FormItem>
                 <FormLabel>CNPJ</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <InputMask {...field} mask={maskCNPJ}>
+                  {(inputProps: any) => (
+                    <Input {...inputProps} />
+                  )}
+                  </InputMask>
                 </FormControl>
                 <FormMessage />
               </FormItem>
