@@ -1,17 +1,19 @@
 import { useAlert, useConfirm } from "@/components/ui/alert-dialog-provider";
-import { useEffect, useState } from "react";
-import { Button } from "../../components/ui/button";
-import ClienteFormDialog from "./ClienteFormDialog";
-import * as ClienteService from "../../services/ClienteService";
 import { useToast } from "@/hooks/use-toast";
-import { ClienteTableComponent } from "./ClienteTableComponent";
 import { Cliente, clienteMockList, columnsCliente } from "@/types/Cliente.d ";
 import { PlusCircle } from "lucide-react";
-import ClienteSaldoForm from "./ClienteSaldoForm";
+import { useEffect, useState } from "react";
+import { Button } from "../../components/ui/button";
+import * as ClienteService from "../../services/ClienteService";
+import ClienteEnvioDialog from "../ClienteEnvio/ClienteEnvioDialog";
+import ClienteFormDialog from "./ClienteFormDialog";
+import ClienteSaldoDialog from "./ClienteSaldoDialog";
+import { ClienteTableComponent } from "./ClienteTableComponent";
 
 const ClienteListPage = () => {
-  const [open, setOpen] = useState(false);
+  const [openForm, setOpenForm] = useState(false);
   const [openSaldo, setOpenSaldo] = useState(false);
+  const [openEnvio, setOpenEnvio] = useState(false);
   const [clienteSelecionado, setClienteSelecionado] =
     useState<Cliente>({})
 const [Clientes, setClientes] = useState<Cliente[]>([])
@@ -65,7 +67,7 @@ const [Clientes, setClientes] = useState<Cliente[]>([])
 
   function callFormDialog(cliente?: Cliente) {
     setClienteSelecionado(cliente ?? {});
-    setOpen(true);
+    setOpenForm(true);
   }
 
   function callSaldoDialog(cliente?: Cliente) {
@@ -73,10 +75,16 @@ const [Clientes, setClientes] = useState<Cliente[]>([])
     setOpenSaldo(true);
   }
 
+  function callEnvioDialog(cliente?: Cliente) {
+    setClienteSelecionado(cliente ?? {});
+    setOpenEnvio(true);
+  }
+
   function updateListAfterSave(dialogOpen: boolean) {
     getClientes();
     setOpenSaldo(dialogOpen);
-    setOpen(dialogOpen);
+    setOpenEnvio(dialogOpen);
+    setOpenForm(dialogOpen);
   }
 
   return (
@@ -84,13 +92,19 @@ const [Clientes, setClientes] = useState<Cliente[]>([])
       <div className="border rounded-lg p-2">
         <h1 className="text-3xl font-bold">Clientes</h1>
 
+        <ClienteEnvioDialog 
+        cliente={clienteSelecionado}
+        open={openEnvio}
+        setOpen={updateListAfterSave}
+        />
+
         <ClienteFormDialog
           cliente={clienteSelecionado}
-          open={open}
+          open={openForm}
           setOpen={updateListAfterSave}
         />
 
-        <ClienteSaldoForm 
+        <ClienteSaldoDialog 
         cliente={clienteSelecionado}
         open={openSaldo}
         setOpen={updateListAfterSave}
@@ -108,6 +122,7 @@ const [Clientes, setClientes] = useState<Cliente[]>([])
         data={Clientes} 
         onEdit={callFormDialog} 
         checkSaldo={callSaldoDialog} 
+        onEnvio={callEnvioDialog}
         onDelete={onRemove} />
       </div>
     </div>

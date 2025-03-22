@@ -36,7 +36,7 @@ type Props = {
   open: boolean;
 } & React.ComponentProps<typeof Slider>;
 
-const ClienteSaldoForm: React.FC<Props> = ({
+const ClienteSaldoDialog: React.FC<Props> = ({
   cliente,
   setOpen,
   open,
@@ -130,7 +130,7 @@ const ClienteSaldoForm: React.FC<Props> = ({
           </CardContent>
         </Card>
         <DrawerFooter>
-          <div className="flex mx-auto items-center">
+          <div className="flex mx-auto items-center gap-2">
             <Label>Adicionar Saldo</Label>
             <InputMask
               mask={maskCurrencyCentena}
@@ -161,4 +161,4 @@ const ClienteSaldoForm: React.FC<Props> = ({
   );
 };
 
-export default ClienteSaldoForm;
+export default ClienteSaldoDialog;

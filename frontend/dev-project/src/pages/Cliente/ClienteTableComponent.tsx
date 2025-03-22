@@ -33,6 +33,7 @@ interface Props<TData, TValue> {
   data: TData[];
   onEdit: (value: TData) => void;
   checkSaldo: (value: TData) => void;
+  onEnvio: (value: TData) => void;
   onDelete: (value: TData) => void;
 }
 
@@ -41,6 +42,7 @@ export function ClienteTableComponent<TData, TValue>({
   data,
   onEdit,
   checkSaldo,
+  onEnvio,
   onDelete,
 }: Props<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -115,7 +117,7 @@ export function ClienteTableComponent<TData, TValue>({
                       <TooltipTrigger asChild>
                           <Button
                             className="px-2"
-                            onClick={() => checkSaldo(row.original)}
+                            onClick={() => onEnvio(row.original)}
                           >
                             <MessageCirclePlus />
                           </Button>
