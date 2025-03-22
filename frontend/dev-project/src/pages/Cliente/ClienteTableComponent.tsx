@@ -120,7 +120,7 @@ export function ClienteTableComponent<TData, TValue>({
                             <MessageCirclePlus />
                           </Button>
                         </TooltipTrigger>
-                        <TooltipContent>Enviar SMS</TooltipContent>
+                        <TooltipContent>Enviar Mensagem</TooltipContent>
                       </Tooltip>
 
                       <Tooltip>

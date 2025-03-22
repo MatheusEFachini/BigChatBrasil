@@ -30,7 +30,7 @@ const items = [
     <Sidebar>
     <SidebarContent>
       <SidebarGroup>
-        <SidebarGroupLabel>CRUD Desenvolvedores</SidebarGroupLabel>
+        <SidebarGroupLabel>BCB - Big Chat Brasil</SidebarGroupLabel>
         <SidebarGroupContent>
           <SidebarMenu>
             {items.map((item) => (
