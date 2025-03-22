@@ -7,10 +7,12 @@ import { useToast } from "@/hooks/use-toast";
 import { ClienteTableComponent } from "./ClienteTableComponent";
 import { Cliente, clienteMockList, columnsCliente } from "@/types/Cliente.d ";
 import { PlusCircle } from "lucide-react";
+import ClienteSaldoForm from "./ClienteSaldoForm";
 
 const ClienteListPage = () => {
   const [open, setOpen] = useState(false);
-  const [ClienteSelecionado, setClienteSelecionado] =
+  const [openSaldo, setOpenSaldo] = useState(false);
+  const [clienteSelecionado, setClienteSelecionado] =
     useState<Cliente>({})
 const [Clientes, setClientes] = useState<Cliente[]>([])
 
@@ -66,8 +68,14 @@ const [Clientes, setClientes] = useState<Cliente[]>([])
     setOpen(true);
   }
 
+  function callSaldoDialog(cliente?: Cliente) {
+    setClienteSelecionado(cliente ?? {});
+    setOpenSaldo(true);
+  }
+
   function updateListAfterSave(dialogOpen: boolean) {
     getClientes();
+    setOpenSaldo(dialogOpen);
     setOpen(dialogOpen);
   }
 
@@ -77,9 +85,15 @@ const [Clientes, setClientes] = useState<Cliente[]>([])
         <h1 className="text-3xl font-bold">Clientes</h1>
 
         <ClienteFormDialog
-          cliente={ClienteSelecionado}
+          cliente={clienteSelecionado}
           open={open}
           setOpen={updateListAfterSave}
+        />
+
+        <ClienteSaldoForm 
+        cliente={clienteSelecionado}
+        open={openSaldo}
+        setOpen={updateListAfterSave}
         />
 
         <div className="flex items-center justify-between">
@@ -93,6 +107,7 @@ const [Clientes, setClientes] = useState<Cliente[]>([])
         columns={columnsCliente} 
         data={Clientes} 
         onEdit={callFormDialog} 
+        checkSaldo={callSaldoDialog} 
         onDelete={onRemove} />
       </div>
     </div>

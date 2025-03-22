@@ -4,6 +4,7 @@ import { twMerge } from "tailwind-merge"
 export const maskCNPJ = "99.999.999/9999-99";
 export const maskCPF = "999.999.999-99";
 export const maskTelefone = "+55 (99) 99999-9999";
+export const maskCurrencyCentena = "R$ 99,99";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -36,3 +37,9 @@ export function isValidCNPJ(cnpj: string) {
   return true;
 };
 
+export function formatToReal(value: number): string {
+  return value.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
+}

@@ -6,13 +6,13 @@ const axiosInstance = axios.create({
 })
 
 export const fetchAll = ():AxiosPromise<Cliente[]> => {
-    return axiosInstance.get(`api/Clientes`)
+    return axiosInstance.get(`api/cliente`)
 } 
 
 export const save = (data: Cliente):AxiosPromise<Cliente> =>
     data?.id ?
-    axiosInstance.put(`api/Cliente/${data.id}`,data) :
-    axiosInstance.post(`api/Cliente`,data);
+    axiosInstance.put(`api/cliente/${data.id}`,data) :
+    axiosInstance.post(`api/cliente`,data);
 
 export const remove = (data: Cliente):AxiosPromise =>
-    axiosInstance.delete(`api/Cliente/${data.id}`);
+    axiosInstance.delete(`api/cliente/${data.id}`);
