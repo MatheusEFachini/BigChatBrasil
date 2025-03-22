@@ -112,7 +112,7 @@ const ClienteEnvioForm: React.FC<Props> = (props) => {
                 <FormDescription>
                   Cada mensagem remove R$ 0,25 do saldo do seu plano,
                   certifique-se que possui saldo o suficiente, ou não atingiu o
-                  limite do seu plano
+                  limite do seu plano.
                 </FormDescription>
                 <FormMessage />
               </FormItem>

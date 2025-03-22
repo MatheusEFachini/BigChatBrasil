@@ -226,7 +226,7 @@ const ClienteForm: React.FC<Props> = (props) => {
                         BCB Pós-pago
                       </FormLabel>
                     </FormItem>
-                    <FormDescription>Plano pós-pago possui um limite de saldo, que precisa ser indicado e é cobrado R$ 0,25 até atingir o limite.</FormDescription>
+                    <FormDescription>Plano pós-pago possui um limite de saldo, que precisa ser indicado, e é cobrado R$ 0,25 até atingir o limite.</FormDescription>
 
                   </RadioGroup>
                 </FormControl>

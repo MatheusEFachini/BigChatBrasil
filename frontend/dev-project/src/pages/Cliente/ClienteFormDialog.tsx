@@ -21,8 +21,6 @@ type Props = {
 };
 
 const ClienteFormDialog: React.FC<Props> = (props) => {
-
-  const alert = useAlert();
   const {toast} = useToast();
 
   const saveCliente = (cliente:Cliente) => {
@@ -31,10 +29,7 @@ const ClienteFormDialog: React.FC<Props> = (props) => {
       toast({title:"Sucesso", variant:"default", description:`Cliente ${cliente.nome} foi salvo`})
       props.setOpen(false);
     }).catch(e => {
-        alert({
-          title:"Erro ao salvar o Cliente",
-          body:`${e.response?.data?.code ?? e.status} - ${e.response?.data?.cause ?? e.message}`,
-        })
+      toast({title:"Erro ao salvar o Cliente", variant:"destructive", description:`${e.response?.data?.code ?? e.status} - ${e.response?.data?.cause ?? e.message}`})
   })
   }
 

@@ -27,10 +27,10 @@ const [Clientes, setClientes] = useState<Cliente[]>([])
   },[]);
 
   const getClientes = () => {
-  //   ClienteService.fetchAll()
-  //   .then(res => {
+    setClientes(clienteMockList);
+    // ClienteService.fetchAll()
+    // .then(res => {
       // setClientes(res?.data);
-      setClientes(clienteMockList);
   //   }).catch(e => {
   //     if(e.status == 404){
   //       setClientes([])
