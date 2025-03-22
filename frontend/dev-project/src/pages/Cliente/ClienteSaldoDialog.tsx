@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Drawer,
+  DrawerClose,
   DrawerContent,
   DrawerDescription,
   DrawerFooter,
@@ -152,9 +153,9 @@ const ClienteSaldoDialog: React.FC<Props> = ({
               <RefreshCcw /> Atualizar Limite
             </Button>
           )}
-          <Button variant="destructive">
-            <CircleX /> Cancelar
-          </Button>
+            <Button variant="destructive" onClick={(e) => setOpen(false)}>
+              <CircleX /> Cancelar
+            </Button>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>

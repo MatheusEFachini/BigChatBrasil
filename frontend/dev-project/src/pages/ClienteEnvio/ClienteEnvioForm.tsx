@@ -27,7 +27,6 @@ type Props = {
 const ClienteEnvioForm: React.FC<Props> = (props) => {
   const validationSchema = z.object({
     id: z.number(),
-    idCliente: z.number(),
     mensagem: z
       .string()
       .min(10, "Mensagem teve ter no mínimo 10 caracteres")
@@ -44,7 +43,12 @@ const ClienteEnvioForm: React.FC<Props> = (props) => {
 
   const form = useForm<z.infer<typeof validationSchema>>({
     resolver: zodResolver(validationSchema),
-    defaultValues: {},
+    defaultValues: {
+      id: props.cliente?.id,
+      mensagem: "",
+      telefoneUsuario: "",
+      isWhatsapp: false
+    },
   });
 
   async function onSubmit(values: z.infer<typeof validationSchema>) {
